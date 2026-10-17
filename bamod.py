@@ -3,6 +3,7 @@ This Script holds two functions.
 it holds a base and a mod functions that work on the natural numbers. 
 eventually they will work on the integers too; 
 This is meant to be used in the command line. and i made it because i am bored at my job and figuinr out bases and mods algorithmically is fun 
+I will eventually add a Cayley Table for Z/mZ\{0} under * vizualizer and factor explainer 
 """
 import sys  
 
@@ -38,6 +39,25 @@ def mod( a: int , m: int):
 
 # a base m, where a is base 10
 def base10_to_m( a: int, m: int):
+    if (m >10 ):
+        print("bases above 10 is not yet supported")
+    else:
+        a_cpy = a
+        n = 0 
+        digits = [0]
+        while( a < pow(m,n) ):
+            n+=1 
+            digits.append(0)
+        print(f"n is {n}")
+        print(f"digits length is {len(digits)}")
+
+
+
+
+
+
+
+
 
 
 if (arg2 == "mod"):
