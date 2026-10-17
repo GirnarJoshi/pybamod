@@ -45,9 +45,11 @@ def base10_to_m( a: int, m: int):
         a_cpy = a
         n = 0 
         digits = [0]
-        while( a < pow(m,n) ):
+        # how many digits are we needing with for our final 
+        while( a_cpy > pow(m,n) ):
             n+=1 
             digits.append(0)
+        digits.pop()
         print(f"n is {n}")
         print(f"digits length is {len(digits)}")
 
