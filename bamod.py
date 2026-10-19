@@ -7,6 +7,9 @@ I will eventually add a Cayley Table for Z/mZ\{0} under * vizualizer and factor 
 """
 import sys  
 
+symbols = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+base_10_symbols_dict = {}
+
 
 try:
     arg0 = sys.argv[0]
@@ -39,6 +42,7 @@ def mod( a: int , m: int):
 
 # a base m, where a is base 10
 def base10_to_m( a: int, m: int):
+
     if (m >10 ):
         print("bases above 10 is not yet supported")
     else:
