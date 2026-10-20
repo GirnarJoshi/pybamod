@@ -76,7 +76,7 @@ def base10_to_base_m( a: int, b: int):
 
 
 
-if __name__ == "main":
+if __name__ == "__main__":
 
     # handle the CL arguments 
     #
@@ -86,9 +86,10 @@ if __name__ == "main":
         print(f" num CL args: {len(sys.argv)}")
         for a in range(len(sys.argv)):
             print(f" arg num {a} : {sys.argv[a]} ")
+
         assert(len(sys.argv) >= 4)
 
-    except IndexError as ie:
+    except AssertionError as ie:
         print("\n")
         print(f"Error: {ie}, usage ==> python3 pymod.py [int] mod/base [int] caley(optional) ")
         sys.exit(1)
@@ -98,9 +99,6 @@ if __name__ == "main":
 
     print("\n")
     print(f" a={a} tool={sys.argv[2]} m={m}")
-
-    assert(type(a) == int )
-    assert(type(m) == int )
 
     # Run the Functions 
     #
