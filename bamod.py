@@ -105,7 +105,7 @@ if __name__ == "__main__":
     if (sys.argv[2] == "mod"):
         mod(a,m)
 
-    if (sys.argv[2] == "base"):
+    elif (sys.argv[2] == "base"):
         base10_to_base_m(a,m)
 
     else:
