@@ -1,13 +1,12 @@
 """
-This Script holds two functions. 
+This Script holds two primary functions. 
 (eventually 3)
 it holds a base and a mod functions (eventually a gcd) that work on the natural numbers. 
 eventually they will work on the integers too; 
-This is meant to be used in the command line. and i made it because i am bored at my job and figuinr out bases and mods algorithmically is fun 
+This is meant to be used in the command line. and i made it because figuing out bases and mods algorithmically is fun 
 I will eventually add a Cayley Table for Z/mZ\{0} under * vizualizer and factor explainer 
 """
 import sys  
-
 
 def mod( a: int , m: int):
     """
@@ -18,7 +17,8 @@ def mod( a: int , m: int):
         a: integer of interest
         m: modulo of interest 
     Returns:
-        r the remainder / equivalence class representative
+        b: the number of times m fits into a 
+        ms_in_a: the remainder / equivalence class representative
 
     """
     a_temp = a
@@ -29,13 +29,11 @@ def mod( a: int , m: int):
         r = r - m 
         a_temp = a_temp - m 
 
-    print("\n")
     print(f"{a} mod {m} == {r}")
     print(f"{a} = {m}*{ms_in_a} + {r}")
     print("\n")
 
-    return r
-
+    return ms_in_a, r
 
 def build_count_symbol_dict(m:int):
     """
@@ -61,7 +59,7 @@ def build_count_symbol_dict(m:int):
         b10_to_symbols[i]=symbols[i]
         print(f"i:{i}, symbols[{i}]:{symbols[i]}")
     print("\n")
-    
+   
     return b10_to_symbols
 
 def a_base_b( a: int, b: int):
@@ -69,13 +67,13 @@ def a_base_b( a: int, b: int):
     this function takes an inteer a in base 10 and converts it into base b 
 
     Arguments: 
-        a: the base 10 number that will be converted 
-        b: the base it will be converted into
+        a:int: the base 10 number that will be converted 
+        b:int: the base it will be converted into ( also expressed in base 10 lol )
     Returns:
-        a_in_base_b: the count value of a represented in base b
+        a_in_base_b:str: the count value of a represented in base b
     """
     
-    if (m >56 ):
+    if (b >56 ):
         print("bases above 56 are not yet supported")
 
     else:
@@ -87,19 +85,37 @@ def a_base_b( a: int, b: int):
         # num digits is 1 larger than the the max power digit 
         while a >= pow(b, n_digits):
             n_digits += 1
-        print(n_digits)
+
+        # step 3: fill digits large to small 
+        # digits will b^n_digits-1,b^n_digits-2,b^n_digits-3,b^n_digits-4,...
+        digits = [0]
+        for i in range(n_digits - 1):
+            digits.append(0) # fill w 0s for now.
+        assert(len(digits) == n_digits)
+        
+        a_cpy = a
+
+        # range(start, stop, step)
+        for i in range(n_digits):
+            # how many b^n_digits-i are in a_cpy 
+            
+            ms_in_a, r = mod(a_cpy, pow(b, n_digits - i - 1))
+
+            digits[i] = symbol_dict[ms_in_a] 
+            # subtract that number from a_cpy (same as using the remainder)
+            a_cpy = r 
 
 
+        a_in_base_b=""
+        for i in range(n_digits):
+            a_in_base_b += (str(digits[i]))
 
+        print(f" {a} in base {b} is {a_in_base_b}")
+        
+        for i in range(n_digits):
+            print(f"{digits[i]}*{b}^{n_digits-i}")
 
-
-
-
-    return 0
-
-
-
-
+        return a_in_base_b
 
 if __name__ == "__main__":
 
@@ -136,4 +152,3 @@ if __name__ == "__main__":
     else:
         print("Mod Usage: \n python3 bamod.py int mod int \n like, python3 5 mod 3")
         print("Base Usage: \n python3 bamod.py int base int \n like, python3 5 base 3")
-
