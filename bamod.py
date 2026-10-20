@@ -37,38 +37,63 @@ def mod( a: int , m: int):
     return r
 
 
+def build_count_symbol_dict(m:int):
+    """
+    This is a helper funct to just make the dictionary of symbols for a needed base
 
-# a base m, where a is base 10
-def base10_to_base_m( a: int, b: int):
+    Arguments:
+        m: int: the base you need symbols for 
+    Returns:
+        dictionary key: int 0 to m-1 value: symbol for that count
+    """
+    # Set up the dict of symbols
+    #
+    symbols = ['0','1','2','3','4','5','6','7',
+               '8','9','a','b','c','d','e','f',
+               'g','h','i','j','k','l','m','n',
+               'o','p','q','r','s','t','u','v',
+               'w','x','y','z','å','∫','ç','∂',
+               'ƒ','∆','µ','ø','π','œ','ß','†',
+               '∑','≈','Ω','Å','Ç','Î','∏','◊']
+    
+    b10_to_symbols = {}
+    for i in range(m):
+        b10_to_symbols[i]=symbols[i]
+        print(f"i:{i}, symbols[{i}]:{symbols[i]}")
+    print("\n")
+    
+    return b10_to_symbols
+
+def a_base_b( a: int, b: int):
     """
     this function takes an inteer a in base 10 and converts it into base b 
 
     Arguments: 
         a: the base 10 number that will be converted 
         b: the base it will be converted into
+    Returns:
+        a_in_base_b: the count value of a represented in base b
     """
-    # Set up the dict of symbols
-    #
-    symbols = ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-    base10_to_symbols_dict = {}
-    for i in range(len(symbols)):
-        base10_to_symbols_dict[i]=symbols[i]
-    print(f"15 : {base10_to_symbols_dict[15]}")
-    print("\n")
+    
+    if (m >56 ):
+        print("bases above 56 are not yet supported")
 
-    if (m >10 ):
-        print("bases above 10 is not yet supported")
     else:
-        a_cpy = a
-        n = 0 
-        digits = [0]
-        # how many digits are we needing with for our final 
-        while( a_cpy > pow(b,n) ):
-            n+=1 
-            digits.append(0)
-        digits.pop()
-        print(f"n is {n}")
-        print(f"digits length is {len(digits)}")
+        # step 1: get symbols
+        symbol_dict = build_count_symbol_dict(b)
+
+        # step 2: find num digits
+        n_digits = 1
+        # num digits is 1 larger than the the max power digit 
+        while a >= pow(b, n_digits):
+            n_digits += 1
+        print(n_digits)
+
+
+
+
+
+
 
     return 0
 
@@ -106,7 +131,7 @@ if __name__ == "__main__":
         mod(a,m)
 
     elif (sys.argv[2] == "base"):
-        base10_to_base_m(a,m)
+        a_base_b(a,m)
 
     else:
         print("Mod Usage: \n python3 bamod.py int mod int \n like, python3 5 mod 3")
