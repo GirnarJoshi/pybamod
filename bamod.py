@@ -7,6 +7,7 @@ This is meant to be used in the command line. and i made it because figuing out 
 I will eventually add a Cayley Table for Z/mZ\{0} under * vizualizer and factor explainer 
 """
 import sys  
+import numpy as np
 
 def mod( a: int , m: int):
     """
@@ -69,6 +70,7 @@ def a_base_b( a: int, b: int):
     Arguments: 
         a:int: the base 10 number that will be converted 
         b:int: the base it will be converted into ( also expressed in base 10 lol )
+
     Returns:
         a_in_base_b:str: the count value of a represented in base b
     """
@@ -116,6 +118,43 @@ def a_base_b( a: int, b: int):
             print(f"{digits[i]}*{b}^{n_digits-i}")
 
         return a_in_base_b
+
+def gcf(a:int, b:int):
+    """
+    ths function reeturns the greatest common integer between integers a and b
+
+    Arguments:
+        a: integer: the smaller number
+        b: integer: the larger number, typicall the m in a modulo
+
+    Returns:
+        the largest integer that divides both a and b
+    """
+    largest_so_far = 1 
+    for i in range(a):
+        if (type(b/i) == 'int'):
+            largest_so_far = i 
+
+    return largest_so_far
+
+def cayley(a:int, m:int, num_EQC_members=3):
+    """
+    Prints a cayley table of the integers mod m without 0 optionally 
+
+    Parameters:
+        a: an integer: the number we show the break down for 
+        m: an integer:  modulo
+        num_EQC_members: integer: the number of expanded member of 'a's Equivalence Class
+
+    Returns:
+        TODO: return a numpy 2d object of the table.
+        nothing - but it does print a m-1 x m-1 cayley table.
+
+    """
+    cayley_table = np.array.zeros((m-1,m-1), dtype=int16, order='C')
+    gcf_a_m = gcf(a,m)
+
+
 
 if __name__ == "__main__":
 
