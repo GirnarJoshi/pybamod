@@ -132,7 +132,7 @@ def gcf(a:int, b:int):
     """
     largest_so_far = 1 
     for i in range(a):
-        if (type(b/i) == 'int'):
+        if (type(b/i) == int):
             largest_so_far = i 
 
     return largest_so_far
