@@ -9,7 +9,7 @@ def test_2():
 
 # Testing mod 
 def test_6():
-    assert ( mod(5,2) == 3,1 ) 
+    assert ( mod(5,2) == (2,1) ) 
 
 
 # Testing GCF 
@@ -26,6 +26,7 @@ def test_9():
 def test_10():
     assert ( gcf(50,10) == 10 )
 
+    # tests where there are integers smaller than a and larger than the gcf
 def test_11():
     assert ( gcf(15,20) == 5 )
 

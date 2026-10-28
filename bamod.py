@@ -147,9 +147,12 @@ def gcf(a:int, b:int):
     largest_so_far = 1 
     for i in range(1, a+1 ,1): # start stop step
         # does i divide b
-        _, r = mod(i,b) 
-        if (r == 0):
+        _, rb = mod(b,i,False) 
+        _, ra = mod(a,i,False) 
+
+        if (rb == 0) and (ra == 0):
             largest_so_far = i 
+
     return largest_so_far
 
 def cayley(a:int, m:int, num_EQC_members=3):
