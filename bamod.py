@@ -169,6 +169,7 @@ def cayley(a:int, m:int, num_EQC_members=3):
         nothing - but it does print a m-1 x m-1 cayley table.
 
     """
+    # TODO: incorporate the a argyment factorization and break down as well 
     cayley_table = np.zeros((m, m), dtype = np.int8, order = 'C')
     
     for i in range(0, m, 1):
@@ -204,6 +205,8 @@ def cayley(a:int, m:int, num_EQC_members=3):
 
 
 if __name__ == "__main__":
+
+    # TODO: incorporate all the new functions into the main function and update the readme 
 
     # handle the CL arguments 
     #
