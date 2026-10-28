@@ -121,7 +121,7 @@ def a_base_b( a: int, b: int):
         print(f" {a} in base {b} is {a_in_base_b}")
         
         for i in range(n_digits):
-            print(f"{digits[i]}*{b}^{n_digits-i}")
+            print(f"{digits[i]}*{b}^{n_digits-i} + ")
 
         return a_in_base_b
 
@@ -169,7 +169,36 @@ def cayley(a:int, m:int, num_EQC_members=3):
         nothing - but it does print a m-1 x m-1 cayley table.
 
     """
-    cayley_table = np.array.zeros((m-1,m-1), dtype=int16, order='C')
+    cayley_table = np.zeros((m, m), dtype = np.int8, order = 'C')
+    
+    for i in range(0, m, 1):
+        for j in range(i, m, 1):
+            k = i * j 
+            _, r = mod(k, m, False)
+            cayley_table[i][j] = r
+            cayley_table[j][i] = r
+
+    print("  ==== Cayley Table ====")
+    print(f"==== Z / {m} Z under [*] ==== ")
+
+    top_row = " *  "
+    for i in range(1, m, 1):
+        top_row += str(i) + "  "
+
+    for i in range(0, m, 1):
+        row = " " 
+
+        for j in range(0, m, 1):
+            if ( j == 0 ):
+                row = row + str(i) + "  "
+            else:
+                row = row + str(cayley_table[i][j]) + "  "
+
+        if (i == 0):
+            row = top_row
+
+        print(row)
+
     gcf_a_m = gcf(a,m)
 
 
