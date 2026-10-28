@@ -1,15 +1,17 @@
 """
-This Script holds two primary functions. 
-(eventually 3)
-it holds a base and a mod functions (eventually a gcd) that work on the natural numbers. 
-eventually they will work on the integers too; 
-This is meant to be used in the command line. and i made it because figuing out bases and mods algorithmically is fun 
-I will eventually add a Cayley Table for Z/mZ\{0} under * vizualizer and factor explainer 
+    This Script holds two primary functions. 
+    (eventually 3)
+    it holds a base and a mod functions (eventually a gcd) that work on the natural numbers. 
+    eventually they will work on the integers too; 
+    This is meant to be used in the command line. and i made it because figuing out bases and mods algorithmically is fun 
+    I will eventually add a Cayley Table for Z/mZ\{0} under * vizualizer and factor explainer 
 """
+
 import sys  
 import numpy as np
 
-def mod( a: int , m: int):
+
+def mod( a: int , m: int , v=True):
     """
     finds the remainder of integer a in modulo m, where  
     a mod m = r. and for some integer b,  a = b * m + r  
@@ -17,6 +19,7 @@ def mod( a: int , m: int):
     Arguments:
         a: integer of interest
         m: modulo of interest 
+        v: True: Verbose flag 
     Returns:
         b: the number of times m fits into a 
         ms_in_a: the remainder / equivalence class representative
@@ -30,9 +33,12 @@ def mod( a: int , m: int):
         r = r - m 
         a_temp = a_temp - m 
 
-    print(f"{a} mod {m} == {r}")
-    print(f"{a} = {m}*{ms_in_a} + {r}")
-    print("\n")
+        # Verbose flag 
+    if (v):
+
+        print(f"{a} mod {m} == {r}")
+        print(f"{a} = {m}*{ms_in_a} + {r}")
+        print("\n")
 
     return ms_in_a, r
 
@@ -101,7 +107,7 @@ def a_base_b( a: int, b: int):
         for i in range(n_digits):
             # how many b^n_digits-i are in a_cpy 
             
-            ms_in_a, r = mod(a_cpy, pow(b, n_digits - i - 1))
+            ms_in_a, r = mod(a_cpy, pow(b, n_digits - i - 1), False)
 
             digits[i] = symbol_dict[ms_in_a] 
             # subtract that number from a_cpy (same as using the remainder)
@@ -130,6 +136,14 @@ def gcf(a:int, b:int):
     Returns:
         the largest integer that divides both a and b
     """
+    smaller = 0 
+    larger = 0
+    if (a > b):
+        smaller = b 
+        larger = a 
+        a = smaller 
+        b = larger 
+
     largest_so_far = 1 
     for i in range(1, a+1 ,1): # start stop step
         # does i divide b
@@ -137,7 +151,6 @@ def gcf(a:int, b:int):
         if (r == 0):
             largest_so_far = i 
     return largest_so_far
-
 
 def cayley(a:int, m:int, num_EQC_members=3):
     """
