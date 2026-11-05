@@ -7,6 +7,8 @@
     I will eventually add a Cayley Table for Z/mZ\{0} under * vizualizer and factor explainer 
 """
 
+# Note to me - zR and zM vim strokes. you keep forgetting 
+
 import sys  
 import numpy as np
 
@@ -21,8 +23,8 @@ def mod( a: int , m: int , v=True):
         m: modulo of interest 
         v: True: Verbose flag 
     Returns:
-        b: the number of times m fits into a 
-        ms_in_a: the remainder / equivalence class representative
+        ms_in_a: the number of times m fits into a 
+        r: the remainder / equivalence class representative
 
     """
     a_temp = a
@@ -42,6 +44,7 @@ def mod( a: int , m: int , v=True):
 
     return ms_in_a, r
 
+# Final Formm COmplete 
 def build_count_symbol_dict(m:int):
     """
     This is a helper funct to just make the dictionary of symbols for a needed base
@@ -69,6 +72,7 @@ def build_count_symbol_dict(m:int):
    
     return b10_to_symbols
 
+# Final Formm COmplete 
 def a_base_b( a: int, b: int):
     """
     this function takes an inteer a in base 10 and converts it into base b 
@@ -125,6 +129,7 @@ def a_base_b( a: int, b: int):
 
         return a_in_base_b
 
+# Final Formm COmplete 
 def gcf(a:int, b:int):
     """
     ths function reeturns the greatest common integer between integers a and b
@@ -136,6 +141,7 @@ def gcf(a:int, b:int):
     Returns:
         the largest integer that divides both a and b
     """
+    # to make it order insensitive 
     smaller = 0 
     larger = 0
     if (a > b):
@@ -169,7 +175,9 @@ def cayley(a:int, m:int, num_EQC_members=3):
         nothing - but it does print a m-1 x m-1 cayley table.
 
     """
+    #
     # TODO: incorporate the a argyment factorization and break down as well 
+    #
     cayley_table = np.zeros((m, m), dtype = np.int8, order = 'C')
     
     for i in range(0, m, 1):
