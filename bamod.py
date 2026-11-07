@@ -13,6 +13,8 @@ import sys
 import numpy as np
 
 
+
+    # Final Formm COmplete 
 def mod( a: int , m: int , v=True):
     """
     finds the remainder of integer a in modulo m, where  
@@ -161,7 +163,7 @@ def gcf(a:int, b:int):
 
     return largest_so_far
 
-def cayley(a:int, m:int, num_EQC_members=3):
+def cayley(a:int, m:int, num_EQC_members=0):
     """
     Prints a cayley table of the integers mod m without 0 optionally 
 
@@ -175,9 +177,8 @@ def cayley(a:int, m:int, num_EQC_members=3):
         nothing - but it does print a m-1 x m-1 cayley table.
 
     """
-    #
-    # TODO: incorporate the a argyment factorization and break down as well 
-    #
+    # if gcf == 1 : a + n * b 
+    # if gcf != 1 : gcf * (1 + n * ( b/gcf) )
     cayley_table = np.zeros((m, m), dtype = np.int8, order = 'C')
     
     for i in range(0, m, 1):
@@ -210,6 +211,17 @@ def cayley(a:int, m:int, num_EQC_members=3):
 
     gcf_a_m = gcf(a,m)
 
+    if (num_EQC_members != 0 ):
+
+        if (gcf_a_m == 1):
+            print('\n')
+            for i in range(num_EQC_members):
+                print(f"Member{i}: {a} + {i} * {m}")
+        else:
+            for i in range(num_EQC_members):
+                print(f"Member{i}: {gcf_a_m} * ( 1 + {i} * {m / gcf_a_m} )")
+
+
 
 
 if __name__ == "__main__":
@@ -226,10 +238,12 @@ if __name__ == "__main__":
             print(f" arg num {a} : {sys.argv[a]} ")
 
         assert(len(sys.argv) >= 4)
+        print('\n')
 
     except AssertionError as ie:
         print("\n")
         print(f"Error: {ie}, usage ==> python3 pymod.py [int] mod/base [int] caley(optional) ")
+        print('\n')
         sys.exit(1)
 
     a = int(sys.argv[1])
@@ -240,12 +254,29 @@ if __name__ == "__main__":
 
     # Run the Functions 
     #
-    if (sys.argv[2] == "mod"):
-        mod(a,m)
+    #
 
-    elif (sys.argv[2] == "base"):
-        a_base_b(a,m)
+    if ( len(sys.argv) == 4 ):
+
+        if (sys.argv[2] == "base"):
+            a_base_b(a,m)
+
+        elif (sys.argv[2] == "mod"):
+            mod(a,m)
+        else:
+            print("Mod Usage: \n python3 bamod.py int mod int \n like, python3 5 mod 3")
+            print("Base Usage: \n python3 bamod.py int base int \n like, python3 5 base 3")
+
+    elif ( len(sys.argv) == 5 ):
+        mod(a, m)
+        cayley(a, m)
+
+    elif( len(sys.argv) == 6 ):
+        mod(a, m)
+        cayley(a, m, int(sys.argv[5]) )
 
     else:
-        print("Mod Usage: \n python3 bamod.py int mod int \n like, python3 5 mod 3")
-        print("Base Usage: \n python3 bamod.py int base int \n like, python3 5 base 3")
+        print("Cayley Usage: \n python3 bamod.py int mod int cayley int(optional) \n like, python3 5 mod 3 cayley 4 \n or, python3 6 mod 13 cayley")
+
+
+
